@@ -1,4 +1,5 @@
 import { Comment } from 'src/database/comment.entity';
+import { Follow } from 'src/database/follow.entity';
 import { Image } from 'src/database/image.entity';
 import { LikeLoveComment } from 'src/database/likelovecomment.entity';
 import { OperationImage } from 'src/database/operationimage.entity';
@@ -21,6 +22,7 @@ export const config: MysqlConnectionOptions = {
     ImageSavedUser,
     OperationImage,
     LikeLoveComment,
+    Follow,
   ],
   synchronize: true,
 };

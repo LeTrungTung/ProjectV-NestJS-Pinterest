@@ -4,8 +4,10 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
+import { Comment } from './comment.entity';
 
 @Entity('images')
 export class Image {
@@ -33,4 +35,7 @@ export class Image {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userCreateId' })
   user: User;
+
+  @OneToMany(() => Comment, (comment) => comment.image)
+  imageComments: Comment[];
 }

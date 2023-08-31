@@ -2,12 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Image } from '../database/image.entity';
+import { Comment } from 'src/database/comment.entity';
+import { User } from 'src/database/user.entity';
 
 @Injectable()
 export class ImageService {
   constructor(
     @InjectRepository(Image)
     private imageRepository: Repository<Image>,
+    @InjectRepository(Comment)
+    private commentRepository: Repository<Comment>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async findAll(): Promise<Image[]> {
@@ -29,5 +35,15 @@ export class ImageService {
 
   async delete(id: number): Promise<void> {
     await this.imageRepository.delete(id);
+  }
+
+  async getCombinedData(): Promise<any[]> {
+    const combinedData = await this.commentRepository
+      .createQueryBuilder('comment')
+      .innerJoinAndSelect('comment.image', 'image')
+      .innerJoinAndSelect('comment.user', 'user')
+      .getMany();
+
+    return combinedData;
   }
 }

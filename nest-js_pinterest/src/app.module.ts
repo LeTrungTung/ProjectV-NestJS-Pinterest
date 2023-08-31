@@ -7,6 +7,8 @@ import { CommentModule } from './comment/comment.module';
 import { ImageSavedUserModule } from './saveimage/saveimage.module';
 import { OperationImageModule } from './operationimage/operationimage.module';
 import { LikeLoveCommentModule } from './likelovecomment/likelovecomment.module';
+import { FollowModule } from './follow/follow.module';
+// import { CombinedImgCommentUserModule } from './combineImgCommentUser/ImgCommentUser.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { LikeLoveCommentModule } from './likelovecomment/likelovecomment.module'
     ImageSavedUserModule,
     OperationImageModule,
     LikeLoveCommentModule,
+    FollowModule,
+    // CombinedImgCommentUserModule,
     TypeOrmModule.forRoot(config),
   ],
 })

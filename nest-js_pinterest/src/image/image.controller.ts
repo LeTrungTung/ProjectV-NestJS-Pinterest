@@ -26,6 +26,11 @@ export class ImageController {
     return this.imageService.findAll();
   }
 
+  @Get('/get-image-comment')
+  async findAllImgCommentUser(): Promise<Comment[]> {
+    return this.imageService.getCombinedData();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Image | undefined> {
     return this.imageService.findById(+id);

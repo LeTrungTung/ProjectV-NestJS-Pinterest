@@ -6,6 +6,8 @@ import {
   Body,
   Put,
   Delete,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../database/user.entity';
@@ -19,6 +21,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User | undefined> {
     return this.userService.findById(+id);
