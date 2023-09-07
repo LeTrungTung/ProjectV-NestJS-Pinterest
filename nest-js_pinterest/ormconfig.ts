@@ -24,5 +24,5 @@ export const config: MysqlConnectionOptions = {
     LikeLoveComment,
     Follow,
   ],
-  synchronize: true,
+  synchronize: false,
 };

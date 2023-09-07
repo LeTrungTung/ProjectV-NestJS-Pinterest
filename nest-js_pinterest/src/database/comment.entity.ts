@@ -4,9 +4,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Image } from './image.entity';
 import { User } from './user.entity';
+import { LikeLoveComment } from './likelovecomment.entity';
 
 @Entity('comments')
 export class Comment {
@@ -35,4 +37,10 @@ export class Comment {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userCommentId' })
   user: User;
+
+  @OneToMany(
+    () => LikeLoveComment,
+    (commentLikeLove) => commentLikeLove.commentLikeLove,
+  )
+  commentLikeLoves: LikeLoveComment[];
 }

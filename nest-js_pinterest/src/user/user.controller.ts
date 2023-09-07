@@ -26,6 +26,10 @@ export class UserController {
   async findOne(@Param('id') id: string): Promise<User | undefined> {
     return this.userService.findById(+id);
   }
+  @Get('email/:email')
+  async findEmail(@Param('email') email: string): Promise<User | undefined> {
+    return this.userService.findByEmail(email);
+  }
 
   @Post()
   async create(@Body() user: User): Promise<User> {

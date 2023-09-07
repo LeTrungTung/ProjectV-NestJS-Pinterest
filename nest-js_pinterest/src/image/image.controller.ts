@@ -28,7 +28,32 @@ export class ImageController {
 
   @Get('/get-image-comment')
   async findAllImgCommentUser(): Promise<Comment[]> {
-    return this.imageService.getCombinedData();
+    return this.imageService.getImageComment();
+  }
+
+  @Get('/get-image-love')
+  async findAllImgLove(): Promise<Comment[]> {
+    return this.imageService.getLoveImages();
+  }
+
+  @Get('/get-image-like')
+  async findAllImgLike(): Promise<Comment[]> {
+    return this.imageService.getLikeImages();
+  }
+
+  @Get('/get-image-user/:id')
+  async getImageCreatedByUserId(@Param('id') userId: number) {
+    return this.imageService.getImagesCreatedByUserId(userId);
+  }
+
+  @Get('get-user-create-image/:id')
+  async getUserCreatedByImageId(@Param('id') imageId: number) {
+    return this.imageService.getUserCreatedByImageId(imageId);
+  }
+
+  @Get('get-image-user-save/:id')
+  async getImagesSavedByUserId(@Param('id') userId: number) {
+    return this.imageService.getImagesSavedByUserId(userId);
   }
 
   @Get(':id')

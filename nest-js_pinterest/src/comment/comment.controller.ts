@@ -19,6 +19,21 @@ export class CommentController {
     return this.commentService.findAll();
   }
 
+  @Get('/get-love-comment')
+  async getLoveComments() {
+    return this.commentService.getLoveComments();
+  }
+
+  @Get('/get-like-comment')
+  async getLikeComments() {
+    return this.commentService.getLikeComments();
+  }
+
+  @Get('/get-all-comment')
+  async getAllComments() {
+    return this.commentService.getAllComments();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Comment | undefined> {
     return this.commentService.findById(+id);

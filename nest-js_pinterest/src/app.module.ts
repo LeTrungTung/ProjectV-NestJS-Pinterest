@@ -8,10 +8,12 @@ import { ImageSavedUserModule } from './saveimage/saveimage.module';
 import { OperationImageModule } from './operationimage/operationimage.module';
 import { LikeLoveCommentModule } from './likelovecomment/likelovecomment.module';
 import { FollowModule } from './follow/follow.module';
-// import { CombinedImgCommentUserModule } from './combineImgCommentUser/ImgCommentUser.module';
+import { AuthModule } from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(config),
     UserModule,
     ImageModule,
     CommentModule,
@@ -19,8 +21,8 @@ import { FollowModule } from './follow/follow.module';
     OperationImageModule,
     LikeLoveCommentModule,
     FollowModule,
-    // CombinedImgCommentUserModule,
-    TypeOrmModule.forRoot(config),
+    AuthModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

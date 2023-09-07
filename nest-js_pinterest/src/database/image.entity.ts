@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
+import { OperationImage } from './operationimage.entity';
+import { ImageSavedUser } from './saveimage.entity';
 
 @Entity('images')
 export class Image {
@@ -38,4 +40,13 @@ export class Image {
 
   @OneToMany(() => Comment, (comment) => comment.image)
   imageComments: Comment[];
+
+  @OneToMany(
+    () => OperationImage,
+    (imageOperation) => imageOperation.imageOperation,
+  )
+  imageOperations: OperationImage[];
+
+  @OneToMany(() => ImageSavedUser, (imageSaved) => imageSaved.imageSaved)
+  imageSaveds: ImageSavedUser[];
 }
