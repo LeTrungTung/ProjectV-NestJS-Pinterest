@@ -5,12 +5,16 @@ import {
   Post,
   Body,
   Put,
+  Patch,
   Delete,
   ClassSerializerInterceptor,
   UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../database/user.entity';
+import { multerUpload } from 'src/utils/multer';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/v1/user')
 export class UserController {
@@ -42,6 +46,22 @@ export class UserController {
     @Body() user: User,
   ): Promise<User | undefined> {
     return this.userService.update(+id, user);
+  }
+
+  @Patch('/avatar/:id')
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }], multerUpload),
+  )
+  updateAvatar(
+    @UploadedFiles() files: any,
+    @Body() data: User,
+    @Param('id') id: number,
+  ) {
+    if (files.avatar) {
+      data.avatar = files.avatar[0].path;
+    }
+    console.log('xem file', files);
+    return this.userService.updateAvatar(data, id);
   }
 
   @Delete(':id')

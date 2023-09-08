@@ -34,4 +34,17 @@ export class UserService {
   async delete(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
+
+  async updateAvatar(data: User, id: number) {
+    try {
+      const imageFind = await this.userRepository.findOneBy({ id: id });
+
+      if (imageFind) {
+        await this.userRepository.update({ id: id }, data);
+        return { message: 'Updated Success' };
+      }
+    } catch (err) {
+      return { message: err.message };
+    }
+  }
 }

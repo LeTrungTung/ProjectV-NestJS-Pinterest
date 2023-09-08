@@ -36,6 +36,9 @@ export class User {
   @Column({ default: 1 })
   status: number;
 
+  @Column({ type: 'varchar', length: 255 })
+  avatar: string;
+
   @OneToMany(() => Comment, (comment) => comment.user)
   userComments: Comment[];
 

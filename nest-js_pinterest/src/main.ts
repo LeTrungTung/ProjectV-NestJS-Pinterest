@@ -1,18 +1,30 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import express from 'express';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as express from 'express';
+
+// import express from 'express';
 require('dotenv').config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  // app.use(express.json()); // Kích hoạt JSON body parser
-  // app.use(express.urlencoded({ extended: true })); // Kích hoạt x-www-form-urlencoded body parser
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use(express.json()); // Sử dụng middleware bodyParser
+  app.useGlobalPipes(new ValidationPipe());
 
   // Kích hoạt CORS
-  app.enableCors();
+  const corsOrigin = ['http://localhost:5050', 'http://localhost:5000'];
 
-  app.useGlobalPipes(new ValidationPipe());
+  //middleware
+  const corsOptions = {
+    origin: corsOrigin,
+    credentials: true, // access-control-allow-credentials: true
+    optionsSuccessStatus: 200, // Sửa tên thuộc tính thành optionsSuccessStatus
+  };
+
+  app.enableCors(corsOptions);
+
+  app.useStaticAssets('uploads'); // Serve ảnh từ thư mục uploads
 
   const PORT = process.env.APP_PORT || 8000;
   await app.listen(PORT, () => {
